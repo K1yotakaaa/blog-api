@@ -2,6 +2,7 @@ from pathlib import Path
 from datetime import timedelta
 from . import conf
 from django.utils.translation import gettext_lazy as _
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -91,6 +92,7 @@ LANGUAGES = [
 LOCALE_PATHS = [BASE_DIR / 'locale']
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -199,6 +201,13 @@ LOGGING = {
             'propagate': False,
         },
     },
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'data' / 'db.sqlite3',
+    }
 }
 
 # Django Channels
