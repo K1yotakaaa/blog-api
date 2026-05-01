@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-# Install system dependencies (gettext for compilemessages)
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     gettext \
     && rm -rf /var/lib/apt/lists/*
@@ -17,16 +17,16 @@ RUN pip install --no-cache-dir -r requirements/base.txt
 # Copy the project source code
 COPY . .
 
-# Create the data directory for SQLite persistence
-RUN mkdir -p /app/data && chown appuser:appuser /app/data
+# Create necessary directories (including logs)
+RUN mkdir -p /app/staticfiles /app/media /app/data /app/logs && chown -R appuser:appuser /app
 
 # Make entrypoint executable
 RUN chmod +x scripts/entrypoint.sh
 
-# Switch to non-root user — do NOT run as root in production
+# Switch to non-root user
 USER appuser
 
 ENTRYPOINT ["scripts/entrypoint.sh"]
 
-# Default command: run Daphne (ASGI server required for WebSockets)
+# Default command
 CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "settings.asgi:application"]
