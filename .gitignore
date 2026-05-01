@@ -1,0 +1,29 @@
+# Environment
+settings/.env
+env/
+venv/
+*.pyc
+__pycache__/
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Media files
+media/
+
+# Compiled translations (commit .po, not .mo)
+*.mo
+
+# Static files collected by collectstatic
+staticfiles/
+static_root/
+
+# SQLite data directory
+data/
